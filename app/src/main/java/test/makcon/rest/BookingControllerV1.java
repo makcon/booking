@@ -3,6 +3,7 @@ package test.makcon.rest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,13 +54,13 @@ public class BookingControllerV1 {
         return mapper.toDto(booking);
     }
 
-    @PutMapping("/{id}/canceling")
+    @PatchMapping("/{id}/cancel")
     public BookingV1 cancel(@PathVariable String id) {
         Booking booking = cancelHandler.handle(id);
         return mapper.toDto(booking);
     }
 
-    @PostMapping("/{id}/rebooking")
+    @PostMapping("/{id}/rebook")
     public BookingV1 rebook(@PathVariable String id, @RequestBody RebookBookingRequestParamsV1 params) {
         Booking booking = rebookHandler.handle(mapper.toCommand(id, params));
         return mapper.toDto(booking);
